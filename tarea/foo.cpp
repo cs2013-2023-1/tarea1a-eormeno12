@@ -46,7 +46,7 @@ Matriz2D::Matriz2D(const Matriz2D& m){
     // Constructor de copia
     this -> filas = m.filas;
     this -> columnas = m.columnas;
-    this -> ptr = new float[filas];
+    this -> ptr = new float*[filas];
 
     for(int i = 0; i <  filas; i ++){
         ptr[i] = new float[columnas];
@@ -61,7 +61,7 @@ Matriz2D::Matriz2D(Matriz2D&& m){
     this -> filas = m.filas;
     this -> columnas = m.columnas;
     ptr = m.ptr;
-    d.ptr = nullptr;
+    m.ptr = nullptr;
 }
 
 Matriz2D t(Matriz2D& m){
@@ -70,7 +70,7 @@ Matriz2D t(Matriz2D& m){
 
     for(int i = 0; i <  m.columnas; i ++){
         for(int j = 0; j < m.filas; j ++){
-            m_T.ptr[i][j] = m.ptr[j][i]
+            m_T.ptr[i][j] = m.ptr[j][i];
         }
     }
 
@@ -92,9 +92,9 @@ Matriz2D operator+(const Matriz2D& m1, const Matriz2D& m2){
     // Sobrecarga del operador +
     Matriz2D m_sum(m1.filas, m1.columnas);
 
-    for(int i = 0; i <  m.filas; i ++){
-        for(int j = 0; j < m.columnas; j ++){
-            m_sum[i][j] = m1[i][j] + m2[i][j];
+    for(int i = 0; i <  m1.filas; i ++){
+        for(int j = 0; j < m1.columnas; j ++){
+            m_sum.ptr[i][j] = m1.ptr[i][j] + m2.ptr[i][j];
         }
     }
     
@@ -105,9 +105,9 @@ Matriz2D operator-(const Matriz2D& m1, const Matriz2D& m2){
     // Sobrecarga del operador -
     Matriz2D m_sub(m1.filas, m1.columnas);
 
-    for(int i = 0; i <  m.filas; i ++){
-        for(int j = 0; j < m.columnas; j ++){
-            m_sub[i][j] = m1[i][j] - m2[i][j];
+    for(int i = 0; i <  m1.filas; i ++){
+        for(int j = 0; j < m1.columnas; j ++){
+            m_sub.ptr[i][j] = m1.ptr[i][j] - m2.ptr[i][j];
         }
     }
 
@@ -130,11 +130,11 @@ Matriz2D operator*(const Matriz2D& m1, const Matriz2D& m2){
 
 Matriz2D operator+(const Matriz2D& m, float n){
     // Sobrecarga del operador +
-    Matriz2D m_sum(m1.filas, m1.columnas);
+    Matriz2D m_sum(m.filas, m.columnas);
 
     for(int i = 0; i <  m.filas; i ++){
         for(int j = 0; j < m.columnas; j ++){
-            m_sum[i][j] = m.ptr[i][j] + n;
+            m_sum.ptr[i][j] = m.ptr[i][j] + n;
         }
     }
     
@@ -143,11 +143,11 @@ Matriz2D operator+(const Matriz2D& m, float n){
 
 Matriz2D operator-(const Matriz2D& m, float n){
     // Sobrecarga del operador -
-    Matriz2D m_sub(m1.filas, m1.columnas);
+    Matriz2D m_sub(m.filas, m.columnas);
 
     for(int i = 0; i <  m.filas; i ++){
         for(int j = 0; j < m.columnas; j ++){
-            m_sub[i][j] = m.ptr[i][j] - n;
+            m_sub.ptr[i][j] = m.ptr[i][j] - n;
         }
     }
     
@@ -156,11 +156,11 @@ Matriz2D operator-(const Matriz2D& m, float n){
 
 Matriz2D operator*(const Matriz2D& m, float n){
     // Sobrecarga del operador *
-    Matriz2D m_prod(m1.filas, m1.columnas);
+    Matriz2D m_prod(m.filas, m.columnas);
 
     for(int i = 0; i <  m.filas; i ++){
         for(int j = 0; j < m.columnas; j ++){
-            m_prod[i][j] = m.ptr[i][j] * n;
+            m_prod.ptr[i][j] = m.ptr[i][j] * n;
         }
     }
     
@@ -169,11 +169,11 @@ Matriz2D operator*(const Matriz2D& m, float n){
 
 Matriz2D operator/(const Matriz2D& m, float n){
     // Sobrecarga del operador /
-    Matriz2D m_div(m1.filas, m1.columnas);
+    Matriz2D m_div(m.filas, m.columnas);
 
     for(int i = 0; i <  m.filas; i ++){
         for(int j = 0; j < m.columnas; j ++){
-            m_div[i][j] = m.ptr[i][j] / n;
+            m_div.ptr[i][j] = m.ptr[i][j] / n;
         }
     }
     
