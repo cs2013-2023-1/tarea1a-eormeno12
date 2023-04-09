@@ -10,7 +10,7 @@ Matriz2D::Matriz2D(){
         this -> ptr[i] = new float[columnas];
 
         for(int j = 0; j < columnas; j ++)
-            this -> ptr[i][j] = (float) rand();
+            this -> ptr[i][j] = (float) (1 + rand() % 100) / 100;
     }
 }
 
@@ -24,7 +24,7 @@ Matriz2D::Matriz2D(int n){
         this -> ptr[i] = new float[columnas];
 
         for(int j = 0; j < columnas; j ++)
-            this -> ptr[i][j] = (float) rand();
+            this -> ptr[i][j] = (float) (1 + rand() % 100) / 100;
     }
 }
 
@@ -38,7 +38,7 @@ Matriz2D::Matriz2D(int n, int m){
         this -> ptr[i] = new float[columnas];
 
         for(int j = 0; j < columnas; j ++)
-            this -> ptr[i][j] = (float) rand();
+            this -> ptr[i][j] = (float) (1 + rand() % 100) / 100;
     }
 }
 
@@ -66,7 +66,7 @@ Matriz2D::Matriz2D(Matriz2D&& m){
 
 Matriz2D t(Matriz2D& m){
     // Transpuesta de una matriz
-    Matriz2D m_T(m.filas, m.columnas);
+    Matriz2D m_T(m.columnas, m.filas);
 
     for(int i = 0; i <  m.columnas; i ++){
         for(int j = 0; j < m.filas; j ++){
@@ -116,14 +116,18 @@ Matriz2D operator-(const Matriz2D& m1, const Matriz2D& m2){
 
 Matriz2D operator*(const Matriz2D& m1, const Matriz2D& m2){
     // Sobrecarga del operador *
-    Matriz2D m_prod(m1.filas, m1.columnas);
-    
-    // for(int i = 0; i <  m.filas; i ++){
-        
-    //     for(int j = 0; j < m.columnas; j ++){
-    //         m_prod[i][j] = 
-    //     }
-    // }
+    Matriz2D m_prod(m1.filas, m2.columnas);
+
+    for(int i = 0; i <  m1.filas; i ++){
+        for(int j = 0; j < m2.columnas; j ++){
+            float value = 0;
+
+            for(int k = 0; k < m1.columnas; k ++)
+                value += m1.ptr[i][k] * m2.ptr[k][j];
+
+            m_prod.ptr[i][j] = value;
+        }
+    }
 
     return m_prod;
 }
