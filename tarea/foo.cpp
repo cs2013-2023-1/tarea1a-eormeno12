@@ -79,10 +79,12 @@ Matriz2D t(Matriz2D& m){
 
 std::ostream& operator<<(std::ostream& os, const Matriz2D& m){
     // Sobrecarga del operador <<
-    for(int i = 0; i <  m.columnas; i ++){
-        for(int j = 0; j < m.filas; j ++)
+    for(int i = 0; i <  m.filas; i ++){
+        for(int j = 0; j < m.columnas; j ++)
             os << m.ptr[i][j] << " ";
-        os << endl;
+        
+        if(i < m.columnas - 1)
+            os << endl;
     }
 
     return os;
